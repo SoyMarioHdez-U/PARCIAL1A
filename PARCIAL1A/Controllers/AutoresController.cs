@@ -21,16 +21,15 @@ namespace PARCIAL1A.Controllers
         public IActionResult Get()
         {
 
-            Autores? listaPedidos = (from p in _librosContext.pedidos
-                                     where p.clienteId == id
+            Autores? listaAutores = (from p in _librosContext.Autores
                                      select p).FirstOrDefault();
 
-            if (listaPedidos == null)
+            if (listaAutores == null)
             {
                 return NotFound();
             }
 
-            return Ok(listaPedidos);
+            return Ok(listaAutores);
 
         }
     }

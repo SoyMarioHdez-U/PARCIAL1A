@@ -2,7 +2,7 @@
 
 namespace PARCIAL1A.Models
 {
-    public class libros
+    public class Libros
     {
         [Key]
         public int Id { get; set; }
