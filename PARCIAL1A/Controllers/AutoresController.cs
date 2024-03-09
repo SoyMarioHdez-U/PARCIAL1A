@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PARCIAL1A.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace PARCIAL1A.Controllers
 {
@@ -21,8 +22,8 @@ namespace PARCIAL1A.Controllers
         public IActionResult Get()
         {
 
-            Autores? listaAutores = (from p in _librosContext.Autores
-                                     select p).FirstOrDefault();
+            List<Autores> listaAutores = (from p in _librosContext.Autores
+                                     select p).ToList();
 
             if (listaAutores == null)
             {
