@@ -8,6 +8,6 @@ namespace PARCIAL1A.Models
         public int Id { get; set; }
         public String? Titulo { get; set; }
 
-        public string? Nombre2 { get; set; }
+        
     }
 }

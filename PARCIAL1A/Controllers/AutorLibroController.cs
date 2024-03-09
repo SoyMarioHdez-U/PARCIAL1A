@@ -89,9 +89,15 @@ namespace PARCIAL1A.Controllers
         public IActionResult Update(int id, [FromBody] AutorLibro listaAutorLibroNueva)
         {
 
+            //AutorLibro? listaLibrosActu = (from c in _librosContext.AutorLibro
+            //                               where c.AutorId == id
+            //                               select c).FirstOrDefault();
+
             AutorLibro? listaLibrosActu = (from c in _librosContext.AutorLibro
-                                           where c.AutorId == id
-                                           select c).FirstOrDefault();
+                                          where c.Orden == id
+                                          select c).FirstOrDefault();
+
+            
             if (listaLibrosActu == null)
             {
 
@@ -117,8 +123,8 @@ namespace PARCIAL1A.Controllers
         public IActionResult Delete(int id)
         {
 
-            Libros? listaLibros = (from c in _librosContext.Libros
-                                   where c.Id == id
+            AutorLibro? listaLibros = (from c in _librosContext.AutorLibro
+                                   where c.Orden == id
                                    select c).FirstOrDefault();
             if (listaLibros == null)
             {
@@ -127,8 +133,8 @@ namespace PARCIAL1A.Controllers
 
             }
 
-            _librosContext.Libros.Attach(listaLibros);
-            _librosContext.Libros.Remove(listaLibros);
+            _librosContext.AutorLibro.Attach(listaLibros);
+            _librosContext.AutorLibro.Remove(listaLibros);
             _librosContext.SaveChanges();
 
             return Ok(listaLibros);

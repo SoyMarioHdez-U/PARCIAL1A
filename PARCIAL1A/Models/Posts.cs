@@ -13,7 +13,7 @@ namespace PARCIAL1A.Models
         
         public int AutorId { get; set; }
 
-        public string? Nombre2 { get; set; }
+        
 
     }
 }

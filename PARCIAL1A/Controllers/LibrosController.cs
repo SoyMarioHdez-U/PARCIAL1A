@@ -67,13 +67,13 @@ namespace PARCIAL1A.Controllers
 
         [HttpPost]
         [Route("Post")]
-        public IActionResult Guardar([FromBody] Autores listaLibros)
+        public IActionResult Guardar([FromBody] Libros listaLibros)
         {
 
             try
             {
 
-                _librosContext.Autores.Add(listaLibros);
+                _librosContext.Libros.Add(listaLibros);
                 _librosContext.SaveChanges();
                 return Ok(listaLibros);
 

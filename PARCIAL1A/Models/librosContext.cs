@@ -14,6 +14,10 @@ namespace PARCIAL1A.Models
         public DbSet<Autores> Autores { get; set; }
         public DbSet<AutorLibro> AutorLibro { get; set; }
 
-        public string? Nombre2 { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AutorLibro>()
+                  .HasKey(m => new { m.AutorId, m.LibroId });
+        }
     }
 }
