@@ -8,5 +8,10 @@ namespace PARCIAL1A.Models
         public librosContext(DbContextOptions <librosContext> options): base(options) { 
         
         }
+
+        public DbSet<libros> libros { get; set; }
+        public DbSet<Posts> posts { get; set; }
+        public DbSet<autores> autores { get; set; }
+        public DbSet<AutorLibro> autorLibros { get; set; }
     }
 }
