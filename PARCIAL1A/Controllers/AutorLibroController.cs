@@ -33,26 +33,23 @@ namespace PARCIAL1A.Controllers
         }
 
         [HttpGet]
-        [Route("GetTodo/")]
-        public IActionResult GetTodo()
+        [Route("GetAutorLibro/")]
+        public IActionResult GetLibros()
         {
 
-            var listadeprueba = (from al in _librosContext.AutorLibro
+            var listadeprueba = (from a in _librosContext.Autores
 
-                                 join a in _librosContext.Libros
-                                         on al.LibroId equals a.Id
-                                 
+                                 join au in _librosContext.AutorLibro
+                                         on a.Id equals au.AutorId
+                                 join l in _librosContext.Libros
+                                         on au.LibroId equals l.Id
 
                                  select new
                                  {
-                                     p.Id,
-                                     p.Titulo,
-                                     p.Contenido,
-                                     p.FechaPublicacion,
-                                     p.AutorId
+                                     Autor = a.Nombre,
+                                     Libro = l.Titulo,
 
-
-                                 }).Take(20).ToList();
+                                 }).ToList();
 
             if (listadeprueba.Count() == 0)
             {
