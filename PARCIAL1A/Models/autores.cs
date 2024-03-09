@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace PARCIAL1A.Models
 {
-    public class autores
+    public class Autores
     {
         [Key]
         public int Id { get; set; }
