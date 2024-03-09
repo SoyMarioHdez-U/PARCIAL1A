@@ -57,7 +57,7 @@ namespace PARCIAL1A.Controllers
 
 
         [HttpGet]
-        [Route("GetTodo/{nombre}")]
+        [Route("GetLibroAutor/{nombre}")]
         public IActionResult GetTodo(string nombre)
         {
 
@@ -65,7 +65,7 @@ namespace PARCIAL1A.Controllers
 
                                  join a in _librosContext.Autores
                                          on p.Id equals a.Id
-                                         where a.Nombre == nombre
+                                 where a.Nombre == nombre
 
                                  select new
                                  {
@@ -73,10 +73,10 @@ namespace PARCIAL1A.Controllers
                                      p.Titulo,
                                      p.Contenido,
                                      p.FechaPublicacion,
-                                     p.AutorId
-                                    
+                                     a.Nombre
 
-                                 }).Take(20).ToList();
+
+                                 }).OrderByDescending(item => item.Id).Take(20).ToList();
 
             if (listadeprueba.Count() == 0)
             {
@@ -87,6 +87,40 @@ namespace PARCIAL1A.Controllers
 
         }
 
+        [HttpGet]
+        [Route("GetLibros/{libro}")]
+        public IActionResult GetLibros(string libro)
+        {
+
+            var listadeprueba = (from p in _librosContext.Posts
+
+                                 join a in _librosContext.Autores
+                                         on p.Id equals a.Id
+                                 join au in _librosContext.AutorLibro
+                                         on a.Id equals au.AutorId
+                                 join l in _librosContext.Libros
+                                         on au.LibroId equals l.Id
+                                 where l.Titulo == libro
+
+                                 select new
+                                 {
+                                     p.Id,
+                                     p.Titulo,
+                                     p.Contenido,
+                                     p.FechaPublicacion,
+                                     a.Nombre
+
+
+                                 }).ToList();
+
+            if (listadeprueba.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(listadeprueba);
+
+        }
 
 
 
