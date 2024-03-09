@@ -56,7 +56,36 @@ namespace PARCIAL1A.Controllers
         }
 
 
+        [HttpGet]
+        [Route("GetTodo/{nombre}")]
+        public IActionResult GetTodo(string nombre)
+        {
 
+            var listadeprueba = (from p in _librosContext.Posts
+
+                                 join a in _librosContext.Autores
+                                         on p.Id equals a.Id
+                                         where a.Nombre == nombre
+
+                                 select new
+                                 {
+                                     p.Id,
+                                     p.Titulo,
+                                     p.Contenido,
+                                     p.FechaPublicacion,
+                                     p.AutorId
+                                    
+
+                                 }).Take(20).ToList();
+
+            if (listadeprueba.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(listadeprueba);
+
+        }
 
 
 
