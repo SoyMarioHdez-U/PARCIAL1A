@@ -21,7 +21,7 @@ namespace PARCIAL1A.Controllers
         public IActionResult Get()
         {
 
-            autores? listaPedidos = (from p in _pruebaContext.pedidos
+            Autores? listaPedidos = (from p in _librosContext.pedidos
                                      where p.clienteId == id
                                      select p).FirstOrDefault();
 

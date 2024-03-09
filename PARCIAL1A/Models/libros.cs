@@ -6,6 +6,6 @@ namespace PARCIAL1A.Models
     {
         [Key]
         public int Id { get; set; }
-        public String Titulo { get; set; }
+        public String? Titulo { get; set; }
     }
 }
