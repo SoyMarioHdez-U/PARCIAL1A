@@ -41,7 +41,7 @@ namespace PARCIAL1A.Controllers
         [Route("GetId/{id}")]
         public IActionResult Buscar(int id)
         {
-
+            
             Posts? listadeprueba = (from p in _librosContext.Posts
                                          where p.Id == id
                                          select p).FirstOrDefault();
