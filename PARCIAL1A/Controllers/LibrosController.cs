@@ -22,8 +22,8 @@ namespace PARCIAL1A.Controllers
         public IActionResult Get()
         {
 
-            Libros? listaLibros = (from p in _librosContext.Libros
-                                     select p).FirstOrDefault();
+            List<Libros> listaLibros = (from p in _librosContext.Libros
+                                     select p).ToList();
 
             if (listaLibros == null)
             {

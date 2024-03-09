@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PARCIAL1A.Models;
 
 namespace PARCIAL1A.Controllers
@@ -15,13 +16,14 @@ namespace PARCIAL1A.Controllers
         {
             _librosContext = librosContext;
         }
+
         [HttpGet]
         [Route("GetAll/")]
         public IActionResult Get()
         {
 
             List<AutorLibro> listaAutorLibro = (from p in _librosContext.AutorLibro
-                                          select p).ToList();
+                                                select p).ToList();
 
             if (listaAutorLibro == null)
             {
@@ -57,6 +59,79 @@ namespace PARCIAL1A.Controllers
             }
 
             return Ok(listadeprueba);
+
+        }
+
+        [HttpPost]
+        [Route("Post")]
+        public IActionResult Guardar([FromBody] AutorLibro listaAutorLibro)
+        {
+
+            try
+            {
+
+                _librosContext.AutorLibro.Add(listaAutorLibro);
+                _librosContext.SaveChanges();
+                return Ok(listaAutorLibro);
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+
+            }
+
+        }
+
+        [HttpPut]
+        [Route("Put")]
+        public IActionResult Update(int id, [FromBody] AutorLibro listaAutorLibroNueva)
+        {
+
+            AutorLibro? listaLibrosActu = (from c in _librosContext.AutorLibro
+                                           where c.AutorId == id
+                                           select c).FirstOrDefault();
+            if (listaLibrosActu == null)
+            {
+
+                return NotFound();
+
+            }
+
+            listaLibrosActu.AutorId = listaAutorLibroNueva.AutorId;
+            listaLibrosActu.LibroId = listaAutorLibroNueva.LibroId;
+            listaLibrosActu.Orden = listaAutorLibroNueva.Orden;
+
+
+            _librosContext.Entry(listaLibrosActu).State = EntityState.Modified;
+            _librosContext.SaveChanges();
+
+            return Ok(listaAutorLibroNueva);
+
+
+        }
+
+        [HttpDelete]
+        [Route("Delete")]
+        public IActionResult Delete(int id)
+        {
+
+            Libros? listaLibros = (from c in _librosContext.Libros
+                                   where c.Id == id
+                                   select c).FirstOrDefault();
+            if (listaLibros == null)
+            {
+
+                return NotFound();
+
+            }
+
+            _librosContext.Libros.Attach(listaLibros);
+            _librosContext.Libros.Remove(listaLibros);
+            _librosContext.SaveChanges();
+
+            return Ok(listaLibros);
 
         }
     }
